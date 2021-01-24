@@ -16,22 +16,26 @@ virtualenv -p python3 venv
 source venv/bin/activate
 
 # Install native dependencies
+# Linux:
 sudo apt install libxml2-dev libxslt-dev libcups2-dev
+# Mac:
+brew install libxml2 libxslt
 
 # Install python dependencies
 pip install PyQt5
 
-# Run inkcut from sources
+# Run inkcut from sources. This will probably fail if you haven't installed the dependencies (next command).
 python main.py
 
-# Install inkcut
+# Install inkcut & dependencies
 pip install .
 
 ```
 ##### NOTES:
 1. Install commands should be run from the folder Inkcut is cloned/downloaded into using either `cd /path/to/inkcut/folder`
-2. If `pip install . ` gives an error regarding enamlx, you may need to install enamlx, then re-run `pip install . `
-In Ubuntu 16, this can be done by: `pip install git+https://github.com/frmdstryr/enamlx.git`.
+2. If `pip install . ` gives an error regarding enamlx, you may need to install enamlx, then re-run `pip install . `. This can typically be done with `pip install enamlx`. In Ubuntu 16, this can be done by: `pip install git+https://github.com/frmdstryr/enamlx.git`.
+3. If `pip install PyQt5` is failing, it is possible to [build `PyQt5` from source](https://www.metachris.com/2016/03/how-to-install-qt56-pyqt5-virtualenv-python3/). So long as you've locally installed QT, you can simply `pip install sip==5.5.0` and follow [the article's steps to build specifically PyQt5 from source](https://www.metachris.com/2016/03/how-to-install-qt56-pyqt5-virtualenv-python3/#install-pyqt5). `python -c "import PyQt5"` should run with no output if installed correctly.
+4. As of 24 Jan 2021, M1 Macs may have an error when running `pip install .` [because `numpy` won't work](https://github.com/numpy/numpy/issues/17807#issuecomment-731014921). You'll need to `brew install openblas` and `OPENBLAS="$(brew --prefix openblas)" pip install numpy`, then re-run `pip install .`.
 
 #### Python 2
 
